@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout-admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm danh mục mới</title>
+    <style>
+        :root {
+            --ink: #1c1c1c; --muted: #6b6b6b; --border: #dcdcdc;
+            --surface: #ffffff; --accent: #2f5d50; --accent-dark: #24463c;
+        }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f6f6f4; color: var(--ink); }
+        .page-wrap { max-width: 860px; margin: 0 auto; padding: 46px 24px 70px; }
+        .topbar { border-bottom: 1px solid var(--border); padding-bottom: 18px; margin-bottom: 26px; }
+        .topbar h1 { font-size: 26px; font-weight: 600; margin: 0; }
+        .topbar p { color: var(--muted); font-size: 15px; margin: 4px 0 0; }
+        .form-card { background: var(--surface); border: 1px solid var(--border); padding: 32px 36px; }
+        .form-group { margin-bottom: 0; }
+        .form-group label { display: block; font-weight: 500; color: var(--ink); font-size: 15px; margin-bottom: 7px; }
+        .form-control { display: block; width: 100%; height: 36px; border: 1px solid var(--border); border-radius: 4px; padding: 7px 14px; font-size: 16px; background: #fff; color: var(--ink); }
+        .form-control:focus { outline: none; border-color: var(--accent); }
+        .form-group input[type="file"] { display: block; width: 100%; height: 36px; border: 1px solid var(--border); border-radius: 4px; padding: 5px 14px; font-size: 15px; background: #fff; color: var(--ink); }
+        .upload-hint { color: var(--muted); font-size: 14.5px; margin-bottom: 10px; }
+        .btn { display: inline-block; border-radius: 4px; font-weight: 500; padding: 11px 24px; border: 1px solid transparent; font-size: 15px; text-decoration: none; cursor: pointer; }
+        .btn-success { background: var(--accent); color: #fff; }
+        .btn-success:hover { background: var(--accent-dark); color: #fff; }
+        .btn-primary { background: #fff; color: var(--ink); border-color: var(--border); }
+        .btn-primary:hover { background: #f2f2f2; color: var(--ink); }
+        .btn-default { background: #fff; color: var(--muted); border-color: var(--border); }
+        .btn-default:hover { background: #f2f2f2; color: var(--ink); text-decoration: none; }
+        .btn-group-actions { margin-top: 22px; }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="page-wrap">
+
+        <div class="topbar">
+            <h1>Thêm danh mục mới</h1>
+            <p>Tạo một danh mục sản phẩm mới cho hệ thống</p>
+        </div>
+
+        <div class="form-card">
+            <form th:action="@{/admin/categories/saveOrUpdate}" th:object="${category}"
+                  method="post" enctype="multipart/form-data">
+
+                <input type="hidden" th:field="*{edit}"/>
+
+                <div class="form-group">
+                    <label>Tên danh mục</label>
+                    <input type="text" th:field="*{name}" class="form-control" placeholder="Nhập tên danh mục" required/>
+                    <div style="color:#a13d3d; font-size:14px; margin-top:6px;"
+                         th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                </div>
+
+                <div class="form-group" style="margin-top:18px;">
+                    <label>Ảnh đại diện</label>
+                    <div class="upload-hint">Chọn hình ảnh đại diện cho danh mục (JPG, PNG...)</div>
+                    <input type="file" th:field="*{icon}" class="form-control"/>
+                </div>
+
+                <div class="btn-group-actions">
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                    <button type="reset" class="btn btn-primary">Hủy</button>
+                    <a th:href="@{/admin/categories/searchpaginated}" class="btn btn-default">Quay lại danh sách</a>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

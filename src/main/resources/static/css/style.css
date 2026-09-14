@@ -1,0 +1,19 @@
+body {
+    background-color: #f5f6fa;
+}
+
+.navbar-brand img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border: 2px solid #fff;
+}
+
+.app-footer {
+    background-color: #212529;
+    color: #fff;
+}
+
+.card-header {
+    font-weight: 600;
+}
